@@ -25,9 +25,9 @@ app.listen(PORT, () =>
 DefaultData();
 
 const allowedOrigins = [
-  "http://localhost:3001",
+  // "http://localhost:3001",
   "https://newofferdhamakasaleonamazn.in",
-  "*",
+  // "*",
 ];
 app.use(
   cors({
