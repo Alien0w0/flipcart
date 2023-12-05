@@ -26,7 +26,7 @@ DefaultData();
 
 const allowedOrigins = [
   // "http://localhost:3001",
-  "https://newofferdhamakasaleonamazn.in",
+  "https://www.newofferdhamakasaleonamazn.in",
   // "*",
 ];
 app.use(
