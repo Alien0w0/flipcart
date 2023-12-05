@@ -14,10 +14,10 @@ const app = express();
 
 const PORT = 8000;
 
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
+// const username = process.env.DB_USERNAME;
+// const password = process.env.DB_PASSWORD;
 
-Connection(username, password);
+Connection();
 
 app.listen(PORT, () =>
   console.log(`Server is running successfully on PORT ${PORT}`)
@@ -25,7 +25,7 @@ app.listen(PORT, () =>
 DefaultData();
 
 const allowedOrigins = [
-  "http://localhost:3000",
+  "http://localhost:3001",
   "https://newofferdhamakasaleonamazn.in",
   "*",
 ];
