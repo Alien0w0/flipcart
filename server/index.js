@@ -24,10 +24,31 @@ app.listen(PORT, () =>
 );
 DefaultData();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://newofferdhamakasaleonamazn.in",
+  "*",
+];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not " +
+          "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
+
 app.use(morgan("dev"));
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+// app.use(cors());
 app.use("/", Routes);
 
 export let paytmMerchantkey = process.env.PAYTM_MERCHANT_KEY;
