@@ -8,12 +8,19 @@ import {
   MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
-import "./DCard.css";
+import { addCard } from "../../service/api";
+import { useNavigate } from "react-router-dom";
+
 function DCard() {
   const [cards, setCards] = useState([
-    { type: "mastercard", number: "** ** ** 3193" },
-    { type: "visa", number: "** ** ** 4296" },
+    { type: "mastercard", number: "**** **** **** 3193" },
+    { type: "visa", number: "**** **** **** 4296" },
   ]);
+  const navigate = useNavigate();
+  const [cardholderName, setCardholderName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expire, setExpire] = useState("");
+  const [cvv, setCvv] = useState("");
 
   const handleRemoveCard = (index) => {
     const updatedCards = [...cards];
@@ -31,6 +38,18 @@ function DCard() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     console.log(data);
+    addCard(data).then((data) => {
+      try {
+        if (data.error) {
+          console.log(data.error);
+        } else {
+          console.log(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
+    navigate("/");
   };
 
   return (
@@ -44,52 +63,69 @@ function DCard() {
       }}
     >
       <form onSubmit={handleSubmit}>
-        <MDBRow className="d-flex justify-content-center">
-          <MDBCol md="6" sm="12">
+        <MDBRow
+          style={{ marginTop: "15%" }}
+          className=" d-flex justify-content-center"
+        >
+          <MDBCol md="10" lg="8" xl="5">
             <MDBCard className="rounded-3">
               <MDBCardBody className="p-4">
-                <span class="visa-icon"></span>
-                <div className="text-center mb-4">{/* <h3>Payment</h3> */}</div>
+                <div className="text-center mb-4">
+                  <h3>Payment</h3>
+                </div>
 
                 <MDBInput
                   label="Cardholder's Name"
                   name="cardholderName"
+                  placeholder="Anna Doe"
                   type="text"
                   size="lg"
-                  value="Anna Doe"
-                  className="form-control"
-                  style={{ width: "100%" }}
+                  value={cardholderName}
+                  onChange={(e) => setCardholderName(e.target.value)}
                 />
-                <MDBInput
-                  label="Card Number"
-                  name="cardNumber"
-                  type="text"
-                  size="lg"
-                  value="1234 5678 1234 5678"
-                  className="form-control"
-                  style={{ width: "100%" }}
-                />
+
                 <MDBRow className="my-4">
-                  <MDBCol size="7">
+                  <MDBCol size="6">
+                    <MDBInput
+                      label="Card Number"
+                      name="cardNumber"
+                      placeholder="1234 5678 1234 5678"
+                      type="text"
+                      size="lg"
+                      value={cardNumber}
+                      onChange={(e) => setCardNumber(e.target.value)}
+                    />
+                  </MDBCol>
+                  <MDBCol size="3">
                     <MDBInput
                       label="Expire"
                       name="Expire"
-                      type="password"
+                      type="number"
                       size="lg"
                       placeholder="MM/YYYY"
-                      className="form-control"
-                      style={{ width: "100%" }}
+                      value={expire}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (!isNaN(val) && val.length <= 4) {
+                          setExpire(val);
+                        }
+                      }}
                     />
                   </MDBCol>
-                  <MDBCol size="5">
+                  <MDBCol size="3">
                     <MDBInput
                       label="CVV"
                       name="CVV"
-                      type="password"
+                      type="number"
                       size="lg"
                       placeholder="CVV"
-                      className="form-control"
-                      style={{ width: "100%" }}
+                      value={cvv}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (!isNaN(val) && val.length <= 3) {
+                          setCvv(val);
+                        }
+                      }}
                     />
                   </MDBCol>
                 </MDBRow>
