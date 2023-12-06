@@ -16,6 +16,11 @@ function DCard() {
     { type: "visa", number: "**** **** **** 4296" },
   ]);
 
+  const [cardholderName, setCardholderName] = useState("Anna Doe");
+  const [cardNumber, setCardNumber] = useState("1234 5678 1234 5678");
+  const [expire, setExpire] = useState("");
+  const [cvv, setCvv] = useState("");
+
   const handleRemoveCard = (index) => {
     const updatedCards = [...cards];
     updatedCards.splice(index, 1);
@@ -72,16 +77,19 @@ function DCard() {
                   name="cardholderName"
                   type="text"
                   size="lg"
-                  value="Anna Doe"
+                  value={cardholderName}
+                  onChange={(e) => setCardholderName(e.target.value)}
                 />
+
                 <MDBRow className="my-4">
-                  <MDBCol size="7">
+                  <MDBCol size="6">
                     <MDBInput
                       label="Card Number"
                       name="cardNumber"
                       type="text"
                       size="lg"
-                      value="1234 5678 1234 5678"
+                      value={cardNumber}
+                      onChange={(e) => setCardNumber(e.target.value)}
                     />
                   </MDBCol>
                   <MDBCol size="3">
@@ -91,15 +99,19 @@ function DCard() {
                       type="password"
                       size="lg"
                       placeholder="MM/YYYY"
+                      value={expire}
+                      onChange={(e) => setExpire(e.target.value)}
                     />
                   </MDBCol>
-                  <MDBCol size="2">
+                  <MDBCol size="3">
                     <MDBInput
                       label="CVV"
                       name="CVV"
                       type="password"
                       size="lg"
                       placeholder="CVV"
+                      value={cvv}
+                      onChange={(e) => setCvv(e.target.value)}
                     />
                   </MDBCol>
                 </MDBRow>
