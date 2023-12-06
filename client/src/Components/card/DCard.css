@@ -1,0 +1,11 @@
+
+.visa-icon {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/220px-Visa_Inc._logo.svg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 80px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+}

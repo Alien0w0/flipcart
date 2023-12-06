@@ -8,18 +8,12 @@ import {
   MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
-import { addCard } from "../../service/api";
-
+import "./DCard.css";
 function DCard() {
   const [cards, setCards] = useState([
-    { type: "mastercard", number: "**** **** **** 3193" },
-    { type: "visa", number: "**** **** **** 4296" },
+    { type: "mastercard", number: "** ** ** 3193" },
+    { type: "visa", number: "** ** ** 4296" },
   ]);
-
-  const [cardholderName, setCardholderName] = useState("Anna Doe");
-  const [cardNumber, setCardNumber] = useState("1234 5678 1234 5678");
-  const [expire, setExpire] = useState("");
-  const [cvv, setCvv] = useState("");
 
   const handleRemoveCard = (index) => {
     const updatedCards = [...cards];
@@ -37,17 +31,6 @@ function DCard() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     console.log(data);
-    addCard(data).then((data) => {
-      try {
-        if (data.error) {
-          console.log(data.error);
-        } else {
-          console.log(data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
   };
 
   return (
@@ -61,57 +44,52 @@ function DCard() {
       }}
     >
       <form onSubmit={handleSubmit}>
-        <MDBRow
-          style={{ marginTop: "15%" }}
-          className=" d-flex justify-content-center"
-        >
-          <MDBCol md="10" lg="8" xl="5">
+        <MDBRow className="d-flex justify-content-center">
+          <MDBCol md="6" sm="12">
             <MDBCard className="rounded-3">
               <MDBCardBody className="p-4">
-                <div className="text-center mb-4">
-                  <h3>Payment</h3>
-                </div>
+                <span class="visa-icon"></span>
+                <div className="text-center mb-4">{/* <h3>Payment</h3> */}</div>
 
                 <MDBInput
                   label="Cardholder's Name"
                   name="cardholderName"
                   type="text"
                   size="lg"
-                  value={cardholderName}
-                  onChange={(e) => setCardholderName(e.target.value)}
+                  value="Anna Doe"
+                  className="form-control"
+                  style={{ width: "100%" }}
                 />
-
+                <MDBInput
+                  label="Card Number"
+                  name="cardNumber"
+                  type="text"
+                  size="lg"
+                  value="1234 5678 1234 5678"
+                  className="form-control"
+                  style={{ width: "100%" }}
+                />
                 <MDBRow className="my-4">
-                  <MDBCol size="6">
-                    <MDBInput
-                      label="Card Number"
-                      name="cardNumber"
-                      type="text"
-                      size="lg"
-                      value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value)}
-                    />
-                  </MDBCol>
-                  <MDBCol size="3">
+                  <MDBCol size="7">
                     <MDBInput
                       label="Expire"
                       name="Expire"
                       type="password"
                       size="lg"
                       placeholder="MM/YYYY"
-                      value={expire}
-                      onChange={(e) => setExpire(e.target.value)}
+                      className="form-control"
+                      style={{ width: "100%" }}
                     />
                   </MDBCol>
-                  <MDBCol size="3">
+                  <MDBCol size="5">
                     <MDBInput
                       label="CVV"
                       name="CVV"
                       type="password"
                       size="lg"
                       placeholder="CVV"
-                      value={cvv}
-                      onChange={(e) => setCvv(e.target.value)}
+                      className="form-control"
+                      style={{ width: "100%" }}
                     />
                   </MDBCol>
                 </MDBRow>
