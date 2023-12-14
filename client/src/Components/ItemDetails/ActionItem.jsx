@@ -57,14 +57,14 @@ const ActionItem = ({ product }) => {
     <LeftContainer>
       <Image src={product.detailUrl} />
       <br />
-      {/* <StyledButton
+      <StyledButton
         onClick={() => addItemToCart()}
         style={{ marginRight: 10, background: "#ff9f00" }}
         variant="contained"
       >
         <Cart />
         Add to Cart
-      </StyledButton> */}
+      </StyledButton>
       <StyledButton
         onClick={() => buyNow()}
         style={{ background: "#fb641b" }}

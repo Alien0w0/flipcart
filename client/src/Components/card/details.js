@@ -25,14 +25,14 @@ const Info = () => {
             <TextField label="Phone Number" fullWidth variant="outlined" />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Button
+            {/* <Button
               onClick={handleAddPhoneNumber}
               variant="contained"
               color="primary"
               className="sigin-btn"
             >
               + Add Alternate Phone Number
-            </Button>
+            </Button> */}
           </Grid>
           {phoneNumbers.map((number, index) => (
             <Grid key={index} item xs={12}>
@@ -81,7 +81,7 @@ const Info = () => {
               onClick={() => {
                 navigate("/payment");
               }}
-              sx={{backgroundColor:"#FF5800" , width:"100%"}}
+              sx={{ backgroundColor: "#FF5800", width: "100%" }}
               type="submit"
               variant="contained"
               color="primary"
