@@ -1,4 +1,4 @@
-
+/* 
 .visa-icon {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/220px-Visa_Inc._logo.svg.png");
   background-size: contain;
@@ -8,4 +8,260 @@
   display: inline-block;
   vertical-align: middle;
   margin-right: 5px;
+} */
+html  {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+html * {
+  box-sizing: inherit;
+}
+.card-html {
+  background: linear-gradient(135deg, #0F6AB0, #053F6F);
+  display: grid;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.6rem;
+  min-height: 100vh;
+  place-content: center;
+}
+/* Layout */
+.cc {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+@media (min-width: 800px) {
+  .cc {
+    gap: 6.4rem;
+    flex-direction: row;
+  }
+}
+/* Form */
+.cc__form {
+  color: gray;
+  max-width: 100%;
+  width: 260px;
+
+}
+.fieldset_payment {
+  appearance: none;
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: 1fr 1fr;
+  padding: 10;
+background-color: white;
+}
+.legend_payment {
+  font-size: 3.2rem;
+  margin-bottom: 2.4rem;
+  padding: 0;
+}
+.label-payment {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+.input-payment[type="text"] {
+  appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid gray;
+  color: white;
+  display: block;
+  font-family: 'Source Sans 3';
+  font-size: 1.8rem;
+  outline: none;
+  padding: 0.4rem 0;
+  width: 100%;
+}
+.input-payment[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.6rem;
+}
+.input-payment[type="text"]:focus {
+  border-color: #89CB75;
+ }
+/*
+.input-payment[type="submit"] {
+  appearance: none;
+  background-color: #89CB75;
+  border: none;
+  border-radius: 0.2rem;
+  color: black;
+  cursor: pointer;
+  font-family: 'Source Sans 3';
+  font-size: 1.8rem;
+  justify-self: start;
+  margin-top: -1.6rem;
+  padding: 0.8rem 1.6rem;
+}
+.input-payment[type="submit"][disabled] {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+} */
+.fieldgroup {
+  grid-column: 1 / -1;
+  margin-bottom: 1.6rem;
+}
+.fieldgroup--half {
+  grid-column: unset;
+}
+/* Credit Card */
+.cc__card {
+  border-radius: 0.8rem;
+  box-shadow: 0 0.8rem 4rem rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  justify-content: space-between;
+  padding: 2.4rem;
+  position: relative;
+  width: 42rem;
+  z-index: 1;
+}
+.cc__card::before {
+  background: linear-gradient(#C1D9EB, #3F86BE);
+  border-radius: 0.8rem;
+  content: '';
+  position: absolute;
+  top: -0.1rem;
+  left: -0.1rem;
+  bottom: -0.1rem;
+  right: -0.1rem;
+  z-index: -2;
+}
+.cc__card::after {
+  background-color: #5994C2;
+  border-radius: 0.8rem;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+.cc__logo {
+  margin-bottom: 1.6rem;
+  width: 3.6rem;
+}
+.cc__cardgroup {
+  flex-grow: 1;
+}
+.cc__cardgroup--wide {
+  flex-basis: 100%;
+}
+.cc__card-label {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+.cc__card-value {
+  color: white;
+  height: 3.2rem;
+  line-height: 3.2rem;
+}
+.cc__card-value--large {
+  font-family: 'PT Mono', monospace;
+  font-size: 2.4rem;
+  height: 4.8rem;
+  line-height: 4.8rem;
+}
+
+/* Add a container with a white background */
+.container {
+  background-color: white;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.8rem 4rem rgba(0, 0, 0, 0.2);
+  padding: 2.4rem;
+  width: 100%; /* Adjusted width */
+  max-width: 500px; /* Set a maximum width */
+  margin: 0 auto; /* Center the container */
+}
+
+/* Set a readable text color and background for .input-payment fields */
+.input-payment[type="text"] {
+  color: #333; /* Dark text color */
+  background-color: #f4f4f4; /* Light gray background */
+  height: 3rem; /* Adjusted height */
+}
+
+/* Fine-tune styling for labels and legends */
+.label-payment, .legend_payment {
+  color: #333; /* Dark text color */
+}
+
+/* Additional styling for the legend */
+.legend_payment {
+  font-size: 2.4rem; /* Increase font size */
+  margin-bottom: 1.6rem; /* Adjust spacing */
+}
+
+/* Make styles responsive for smaller screens */
+@media (max-width: 600px) {
+  /* Adjust styles for mobile devices */
+  .container {
+    padding: 1.6rem;
+  }
+
+  .input-payment[type="text"] {
+    height: 2.8rem;
+  }
+
+  .label-payment, .legend_payment {
+    font-size: 1.6rem;
+  }
+}
+
+/* Add the following styles to your existing CSS */
+
+/* Button styling */
+.btn-submit {
+  background-color: #FEC200; /* Set the button color to FEC200 */
+  color: black; /* Set the text color */
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  font-family: 'Source Sans 3';
+  font-size: 1.8rem;
+  padding: 0.8rem 0; /* Adjust padding */
+  margin-top: 1.6rem; /* Adjust spacing */
+}
+
+
+/* Add the following styles to your existing CSS */
+
+.price-detail {
+  background-color: #f4f4f4; /* Light gray background for price detail section */
+  padding: 2rem;
+  border-radius: 0.8rem;
+  margin-top: 2rem;
+}
+
+.price-detail-heading {
+  color: #333; /* Dark text color for the heading */
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.price-detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.price-detail-item label {
+  color: #555; /* Medium gray text color for labels */
+  font-size: 1.4rem;
+}
+
+.price-detail-item label:last-child {
+  color: #333; /* Dark text color for values */
 }

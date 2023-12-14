@@ -1,155 +1,125 @@
-import React, { useState } from "react";
-import {
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCol,
-  MDBContainer,
-  MDBInput,
-  MDBRow,
-} from "mdb-react-ui-kit";
-import { addCard } from "../../service/api";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import './DCard.css';
 
-function DCard() {
-  const [cards, setCards] = useState([
-    { type: "mastercard", number: "**** **** **** 3193" },
-    { type: "visa", number: "**** **** **** 4296" },
-  ]);
-  const navigate = useNavigate();
-  const [cardholderName, setCardholderName] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expire, setExpire] = useState("");
-  const [cvv, setCvv] = useState("");
+const DCard = () => {
+  const [fields, setFields] = useState({
+    cardnumber: '',
+    cardholder: '',
+    exp: '',
+    cvc: '',
+  });
+  const [valid, setValid] = useState(false);
 
-  const handleRemoveCard = (index) => {
-    const updatedCards = [...cards];
-    updatedCards.splice(index, 1);
-    setCards(updatedCards);
+  const validate = () => {
+    const isValid = Object.values(fields).every((value) => value.length > 0);
+    setValid(isValid);
   };
 
-  const handleAddCard = (newCard) => {
-    setCards([...cards, newCard]);
+  useEffect(() => {
+    validate();
+  }, [fields]);
+
+  const handleChange = (field, value) => {
+    setFields((prevFields) => ({
+      ...prevFields,
+      [field]: value,
+    }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    console.log(data);
-    addCard(data).then((data) => {
-      try {
-        if (data.error) {
-          console.log(data.error);
-        } else {
-          console.log(data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
-    navigate("/");
+  const handleKeyDown = (e, field, maxLength) => {
+    if (fields[field].length >= maxLength && e.keyCode !== 8 && e.keyCode !== 9 && e.keyCode !== 46) {
+      e.preventDefault();
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your form submission logic here
   };
 
   return (
-    <MDBContainer
-      className="py-5"
-      fluid
-      style={{
-        backgroundImage:
-          "url(https://mdbcdn.b-cdn.net/img/Photos/Others/background3.webp)",
-        height: "100vh",
-      }}
-    >
-      <form onSubmit={handleSubmit}>
-        <MDBRow
-          style={{ marginTop: "15%" }}
-          className=" d-flex justify-content-center"
-        >
-          <MDBCol md="10" lg="8" xl="5">
-            <MDBCard className="rounded-3">
-              <MDBCardBody className="p-4">
-                <div className="text-center mb-4">
-                  <h3>Payment</h3>
-                </div>
+    
+    <div className='card-html '>
+    <div className="container cc" data-fields={JSON.stringify(fields)} data-valid={valid}>
 
-                <MDBInput
-                  label="Cardholder's Name"
-                  name="cardholderName"
-                  placeholder="Anna Doe"
-                  type="text"
-                  size="lg"
-                  value={cardholderName}
-                  onChange={(e) => setCardholderName(e.target.value)}
-                />
-
-                <MDBRow className="my-4">
-                  <MDBCol size="6">
-                    <MDBInput
-                      label="Card Number"
-                      name="cardNumber"
-                      placeholder="1234 5678 1234 5678"
-                      type="text"
-                      size="lg"
-                      value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value)}
-                    />
-                  </MDBCol>
-                  <MDBCol size="3">
-                    <MDBInput
-                      label="Expire"
-                      name="Expire"
-                      type="number"
-                      size="lg"
-                      placeholder="MM/YYYY"
-                      value={expire}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        if (!isNaN(val) && val.length <= 4) {
-                          setExpire(val);
-                        }
-                      }}
-                    />
-                  </MDBCol>
-                  <MDBCol size="3">
-                    <MDBInput
-                      label="CVV"
-                      name="CVV"
-                      type="number"
-                      size="lg"
-                      placeholder="CVV"
-                      value={cvv}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        if (!isNaN(val) && val.length <= 3) {
-                          setCvv(val);
-                        }
-                      }}
-                    />
-                  </MDBCol>
-                </MDBRow>
-                <MDBBtn
-                  color="success"
-                  size="lg"
-                  type="submit"
-                  block
-                  onClick={() =>
-                    handleAddCard({
-                      type: "custom-card", // Adjust the type as needed
-                      number: "Custom Card Number", // Provide the actual card number
-                    })
-                  }
-                >
-                  Buy Now
-                </MDBBtn>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
+    <div className="cc" data-fields={JSON.stringify(fields)} data-valid={valid}>
+      <form className="cc__form" onSubmit={handleSubmit} onKeyUp={validate}>
+        <fieldset className='fieldset_payment'>
+          <legend className='legend_payment'>Payment Details</legend>
+          <div className="fieldgroup">
+            <label htmlFor="card-number" className='label-payment'>Card Number</label>
+            <input
+              id="card-number"
+              type="text"
+              className='input-payment'
+              tabIndex="1"
+              value={fields.cardnumber}
+              onChange={(e) => handleChange('cardnumber', e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, 'cardnumber', 18)}
+              />
+          </div>
+          <div className="fieldgroup">
+            <label htmlFor="cardholder" className='label-payment'>Cardholder</label>
+            <input
+              id="cardholder"
+              className='input-payment'
+              type="text"
+              tabIndex="2"
+              value={fields.cardholder}
+              onChange={(e) => handleChange('cardholder', e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, 'cardholder', 24)}
+              />
+          </div>
+          <div className="fieldgroup fieldgroup--half">
+            <label htmlFor="card-exp" className='label-payment'>Expires</label>
+            <input
+              id="card-exp"
+              type="text"
+              className='input-payment'
+              placeholder="MM/YY"
+              tabIndex="3"
+              value={fields.exp}
+              onChange={(e) => handleChange('exp', e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, 'exp', 4)}
+              />
+          </div>
+          <div className="fieldgroup fieldgroup--half">
+            <label htmlFor="card-cvc" className='label-payment'>CVC</label>
+            <input
+              id="card-cvc"
+              type="text"
+              className='input-payment'
+              tabIndex="4"
+              value={fields.cvc}
+              onChange={(e) => handleChange('cvc', e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, 'cvc', 3)}
+              />
+          </div>
+          <button className="btn-submit" type="submit" value="Add Card" tabIndex="5"  >
+          Submit</button>
+        </fieldset>
       </form>
-    </MDBContainer>
+    </div>
+    </div>
+    <div className="price-detail">
+        <p className="price-detail-heading">Price Detail</p>
+        <div className="price-detail-item">
+          <label>Price Item</label>
+          <label>0000</label>
+        </div>
+        <div className="price-detail-item">
+          <label>Delivery charges</label>
+          <label>Free</label>
+        </div>
+        <hr />
+        <div className="price-detail-item">
+          <label>Amount Payable</label>
+          <label>0000</label>
+        </div>
+      </div>
+    
+              </div>
   );
-}
+};
 
 export default DCard;
